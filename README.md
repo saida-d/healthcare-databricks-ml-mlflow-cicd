@@ -69,50 +69,12 @@ CI/CD Automated Deployment
 ![DBS](assets/Job-Triggers.png)
 
 
-### 1️⃣ Load and Prepare Data
-```python
-from pyspark.sql import SparkSession
-spark = SparkSession.builder.getOrCreate()
-df = spark.table("main.healthcare_uc.gold_payments")
-# Data preprocessing steps
-```
-
-### 2️⃣ Train Model (RandomForestRegressor) 
-#### note : if dataset size > 1 to 100GB use Pyspark MLib ( <1GB Scikit-learn / Pandas)
-#### above 100 GB datasets = PySpark MLlib + distributed training (XGBoost, TensorFlow, Horovod)
-```python
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestRegressor
-
-X = df.drop('target_column').toPandas()
-y = df.select('target_column').toPandas()
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-model = RandomForestRegressor()
-model.fit(X_train, y_train)
-```
-
-### 3️⃣ Log & Register Model to Unity Catalog
-```python
-import mlflow
-import mlflow.sklearn
-
-with mlflow.start_run() as run:
-    mlflow.sklearn.log_model(model, "healthcare_model", registered_model_name="main.healthcare_uc.healthcare_model")
-```
-
-### 4️⃣ Assign Alias
-```python
-from mlflow.tracking import MlflowClient
-client = MlflowClient()
-client.set_registered_model_alias(name="main.healthcare_uc.healthcare_model", alias="staging", version=1)
-```
-
-### 5️⃣ Load Model by Alias
+### Load Model by Alias
 ```python
 staging_model = mlflow.pyfunc.load_model("models:/main.healthcare_uc.healthcare_model/staging")
 ```
 
-### 6️⃣ Serve the Model
+### Serve the Model
 - Go to **Databricks UI → Model Serving**
 - Select model and alias
 - Deploy endpoint
