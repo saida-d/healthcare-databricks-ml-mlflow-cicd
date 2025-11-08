@@ -14,7 +14,8 @@ The workflow covers:
 5. Optional: Model serving on Databricks
 
 ## Architecture
-`java
+```java
+
 Bronze Layer (Raw Data)
         │
         ▼
@@ -39,7 +40,7 @@ Databricks Model Serving Endpoint
         ▼
 CI/CD Automated Deployment
 
-`
+```
 
 ## Prerequisites
 - Databricks workspace with Unity Catalog enabled
