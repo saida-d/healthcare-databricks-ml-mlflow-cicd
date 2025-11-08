@@ -52,6 +52,23 @@ CI/CD Automated Deployment
 
 ## Steps
 
+### Training
+![DBS](assets/training_01.png)
+
+### Mlflow register (best model)
+![DBS](assets/mlflow_01.png)
+
+
+### Experimenting
+![DBS](assets/Experimenting.png)
+
+### Serving-endpoints
+![DBS](assets/Serving-endpoints.png)
+
+### Job-Triggers
+![DBS](assets/Job-Triggers.png)
+
+
 ### 1️⃣ Load and Prepare Data
 ```python
 from pyspark.sql import SparkSession
