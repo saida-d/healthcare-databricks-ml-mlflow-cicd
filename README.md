@@ -14,9 +14,32 @@ The workflow covers:
 5. Optional: Model serving on Databricks
 
 ## Architecture
-Bronze (Raw Data) → Silver (Cleaned Data) → Gold (Feature-Ready Data)
-→ ML Training Notebook (PySpark + scikit-learn) → MLflow Logging & Tracking
-→ Unity Catalog Model Registry → Databricks Model Serving Endpoint -> CI/CD automated deployment
+`java
+Bronze Layer (Raw Data)
+        │
+        ▼
+Silver Layer (Cleaned Data)
+        │
+        ▼
+Gold Layer (Feature-Ready Data)
+        │
+        ▼
+ML Training Notebook
+(PySpark + scikit-learn)
+        │
+        ▼
+MLflow Logging & Tracking
+        │
+        ▼
+Unity Catalog Model Registry
+        │
+        ▼
+Databricks Model Serving Endpoint
+        │
+        ▼
+CI/CD Automated Deployment
+
+`
 
 ## Prerequisites
 - Databricks workspace with Unity Catalog enabled
